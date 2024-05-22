@@ -5,7 +5,7 @@ const path = require('path');
 // API route to read the db.json file and return all saved notes as JSON
 router.get('/notes', (req, res) => {
     // Read the db.json file
-    fs.readFile(path.join(__dirname, '../db.json'), 'utf8', (err, data) => {
+    fs.readFile(path.join(__dirname, '../db'), 'utf8', (err, data) => {
         if (err) {
             console.error(err);
             return res.status(500).json({ error: 'Internal Server Error' });
@@ -20,7 +20,7 @@ router.post('/notes', (req, res) => {
     const newNote = req.body;
 
     // Read the current notes from the db.json file
-    fs.readFile(path.join(__dirname, '../db.json'), 'utf8', (err, data) => {
+    fs.readFile(path.join(__dirname, '../db'), 'utf8', (err, data) => {
         if (err) {
             console.error(err);
             return res.status(500).json({ error: 'Internal Server Error' });
@@ -36,7 +36,7 @@ router.post('/notes', (req, res) => {
         notes.push(newNote);
 
         // Write the updated notes array back to the db.json file
-        fs.writeFile(path.join(__dirname, '../db.json'), JSON.stringify(notes, null, 2), (err) => {
+        fs.writeFile(path.join(__dirname, '../db'), JSON.stringify(notes, null, 2), (err) => {
             if (err) {
                 console.error(err);
                 return res.status(500).json({ error: 'Internal Server Error' });
